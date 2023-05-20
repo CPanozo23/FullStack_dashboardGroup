@@ -1,0 +1,12 @@
+.cursor-pointer {
+    cursor: pointer;
+  }
+
+  #banks div{
+    transition: 1s;
+}
+
+#banks div:hover{
+    background: blue !important;
+    color:white;
+}
