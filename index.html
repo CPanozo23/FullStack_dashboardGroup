@@ -15,6 +15,42 @@
 
 <body>
     <header class="text-bg-dark p-3 text-center">
+
+        <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                </div>
+            </div>
+            </nav>
+        </div> -->
+
         <h1>Dashboard Comisión para el Mercado Financiero</h1>
     </header>
     <main class="p-3">
@@ -28,11 +64,77 @@
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <!-- AQUI VAN LOS INDICADORES -->
-                        AQUI VAN LOS INDICADORES
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Non possimus itaque praesentium?
-                        Deserunt reiciendis iure incidunt? Maxime nam nesciunt ullam earum harum itaque quae excepturi?
-                        Nemo illo officia sapiente sit.
+                        <!-- Inicio Sección con los indicadores financieros -->
+                        <div id="header">
+                            <main>
+                                <article id="secc_buscar">
+                                    <section class="seccionFiltros">
+                                        <h1>En esta sección puede seleccionar el indice o indices a comparar</h1>
+                                        <p>Presione <strong>"Comparar Valores"</strong> para visualizar 2 indices en el periodo seleccionado</p>
+                                    </section>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1" >Íncide base</span>
+                                        <select id="selector" class="form-select" aria-label="Default select example">
+                                            <option selected default value="dolar">Dólar</option>
+                                            <option value="euro">Euro</option>
+                                            <option value="ipc">IPC</option>
+                                            <option value="tip">Tasa Int. Promedio</option>
+                                            <option value="tmc">Tasa Int. Máx. Convencional</option>
+                                            <option value="uf">UF</option>
+                                            <option value="utm">UTM</option>
+                                          </select>
+                                          <span class="input-group-text" id="basic-addon1" >Tipo de Gráfico</span>
+                                          <select id="tipoGraficoUno" class="form-select" aria-label="Default select example">
+                                            <option selected default value="line">📈 Lineas</option>
+                                            <option value="bar">📊 Barras</option>
+                                          </select> 
+                                          <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                            <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" value ="no">
+                                            <label class="btn btn-outline-primary" for="btncheck1">Comparar valores</label>
+                                          </div>
+                                          <select id="selectorDos" class="form-select" aria-label="Default select example" disabled>
+                                            <option selected default disabled>Seleccione</option>
+                                            <option value="dolar">Dólar</option>
+                                            <option value="euro">Euro</option>
+                                            <option value="ipc">IPC</option>
+                                            <option value="tip">Tasa Int. Promedio</option>
+                                            <option value="tmc">Tasa Int. Máx. Convencional</option>
+                                            <option value="uf">UF</option>
+                                            <option value="utm">UTM</option>
+                                          </select> 
+                                          <span class="input-group-text" id="basic-addon1" >Tipo de Gráfico</span>
+                                          <select id="tipoGraficoDos" class="form-select" aria-label="Default select example" disabled>
+                                            <option selected default value="line">📈 Lineas</option>
+                                            <option value="bar">📊 Barras</option>
+                                          </select> 
+                                    </div>
+                                    <div class="input-group mb-3">          
+                                        <span class="input-group-text" id="basic-addon1" >Periodo</span>
+                                        <select id="selectorPeriodo" class="form-select" aria-label="Default select example">
+                                          <option selected default value="24">Últimos 24 meses</option>
+                                          <option value="12">Últimos 12 meses</option>
+                                          <option value="6">Últimos 6 meses</option>
+                                          <option value="3">Últimos 3 meses</option>
+                                          <option value="0">Fechas móviles</option>
+                                        </select> 
+                                          <span class="input-group-text" id="basic-addon1">Fecha Inicial</span>
+                                          <input id="inputFechaInicial" type="date" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                                          <span class="input-group-text" id="basic-addon1">Fecha Final</span>
+                                          <input id="inputFechaFinal" type="date" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                        
+                                    </div>
+                                </article>
+                                <article id="secc_graficos">
+                                    <div class="primerGrafico">
+                                        <h1 id="encabezadoGrafico">Resultados a mostrar para el periodo</h1>
+                                    <canvas class="graf" id="grafico1"></canvas>
+                                    </div>
+                                    <canvas class="graf" id="grafico2"></canvas>
+                                    <canvas class="graf" id="grafico3"></canvas>
+                                </article>
+                            </main>
+                            <script src="./assets/js/main.js" type="module"></script>                
+                        <!-- Fin Sección con los indicadores financieros -->
                     </div>
                 </div>
             </article>
