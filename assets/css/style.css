@@ -10,3 +10,18 @@
     background: blue !important;
     color:white;
 }
+
+.row {
+  margin-bottom: 20px;
+
+}
+
+.card{
+  height: 200px;
+
+}
+
+img{
+  height: 40px;
+  width: 40px;
+}
