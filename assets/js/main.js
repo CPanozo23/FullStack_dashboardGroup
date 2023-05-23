@@ -40,8 +40,12 @@ function obtieneFecha(mes) {
     ahoraMenosAlgo.setMonth(ahoraMenosAlgo.getMonth()-mes);
     var year = ahoraMenosAlgo.getFullYear();
     var month = ahoraMenosAlgo.getMonth() +1;
+    
     var day = ahoraMenosAlgo.getDay();
-
+    if (day === 0){
+        day = day +1
+    }
+    console.log(day, month, year)
     var formattedDate = year + '-' + addLeadingZero(month) + '-' + addLeadingZero(day);
     return formattedDate;
 }
