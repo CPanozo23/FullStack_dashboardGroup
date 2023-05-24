@@ -159,6 +159,8 @@ tipoGraficoDos.addEventListener("change", ()=>{
     cambio();
 })
 
+fu()
+
 /****************** [3] BANK INFO ******************/
 //[3.1] Use when clicked the bank of the list
 const divClick = document.getElementById('banks');
