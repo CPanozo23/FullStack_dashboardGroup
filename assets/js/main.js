@@ -42,15 +42,19 @@ const endDate_Input = document.getElementById("inputFechaFinal");
 // let fechaMenosAlgo = obtieneFecha(12);
 
 function obtieneFecha(mes) {
-  var ahoraMenosAlgo = new Date();
-  ahoraMenosAlgo.setMonth(ahoraMenosAlgo.getMonth() - mes);
-  var year = ahoraMenosAlgo.getFullYear();
-  var month = ahoraMenosAlgo.getMonth() + 1;
-  var day = ahoraMenosAlgo.getDay();
+    var ahoraMenosAlgo = new Date();
+    ahoraMenosAlgo.setMonth(ahoraMenosAlgo.getMonth()-mes);
+    var year = ahoraMenosAlgo.getFullYear();
+    var month = ahoraMenosAlgo.getMonth() +1;
+    
+    var day = ahoraMenosAlgo.getDay();
+    if (day === 0){
+        day = day +1
+    }
+    console.log(day, month, year)
+    var formattedDate = year + '-' + addLeadingZero(month) + '-' + addLeadingZero(day);
+    return formattedDate;
 
-  var formattedDate =
-    year + "-" + addLeadingZero(month) + "-" + addLeadingZero(day);
-  return formattedDate;
 }
 
 function addLeadingZero(number) {
@@ -192,6 +196,8 @@ tipoGraficoDos.addEventListener("change", () => {
   GraficoDos = tipoGraficoDos.value;
   cambio();
 });
+
+fu()
 
 /****************** [3] BANK INFO ******************/
 //[3.1] Use when clicked the bank of the list
