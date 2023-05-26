@@ -16,41 +16,7 @@
 <body>
     <header class="text-bg-dark p-3 text-center">
 
-        <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-                </div>
-            </div>
-            </nav>
-        </div> -->
-
+    
         <h1>Dashboard Comisión para el Mercado Financiero</h1>
     </header>
     <main class="p-3">
@@ -162,27 +128,33 @@
                         </section>
                         <section class="row text-center align-items-center">
                             <h2 class="text-center" id="titlePage"></h2>
-                            <input type="text" id="idBank" readonly hidden />
+                            <input type="text" id="idBank" readonly  />
                             <div class="col-lg-6 col-md-12 text-center d-flex justify-content-center align-items-center"><canvas id="graphEmployees"></canvas></div>
                             <div class="col-lg-6 col-md-12 text-center d-flex justify-content-center align-items-center"><canvas id="graphEmployees2"></canvas></div>
                         </section>
-                    </div>
-                </div>
-            </article>
-            <article class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        BALANCE
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <!-- AQUI VA EL BALANCE -->
-                        AQUI VA EL BALANCE
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Non possimus itaque praesentium?
-                        Deserunt reiciendis iure incidunt? Maxime nam nesciunt ullam earum harum itaque quae excepturi?
-                        Nemo illo officia sapiente sit
+                    
+            
+                       
+                                <label class="input-names" for="category" id="titleYear">Año</label>
+                                       
+                              <div class="container pt-5">
+                                <div class="">
+                                  
+                                  <button type="button" class="btn btn-primary" id="consultar">Consultar</button>
+                                </div>
+                                <div id="resultados"></div>
+                                <div>
+                                  <h2>Efectivo</h2>
+                                  <canvas id="graficoBalance1"></canvas>
+                                </div>
+                                <div>
+                                  <h2>Activos</h2>
+                                  <canvas id="graficoBalance2"></canvas>
+                                </div>
+                              </div>
+
+
+
                     </div>
                 </div>
             </article>
