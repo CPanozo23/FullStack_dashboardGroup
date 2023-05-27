@@ -30,7 +30,7 @@ export const drawChart = (datos, contenedor, titulo) => {
 export const drawChartDos = (contenedor, datos1, titulo1, datos2, titulo2) => {
     
     grafico = new Chart(contenedor, {
-        type: document.getElementById("tipoGraficoUno").value,        
+        // type: document.getElementById("tipoGraficoUno").value,        
         data: {
             datasets: [{
             type: document.getElementById("tipoGraficoUno").value,

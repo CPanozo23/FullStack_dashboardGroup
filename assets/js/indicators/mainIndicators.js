@@ -72,7 +72,7 @@ export const fetchData = async () => {
         yyyyEnd
       ); // acá estoy ejecutando el API Request
       // drawTable(datos,dataTable) //acá estoy generando los valores de la tabla
-      const datosFormateados = formatData(datos); // acá esto leyendo los datos correctos para el gráfico
+      const datosFormateados = formatData(datos, indicador); // acá esto leyendo los datos correctos para el gráfico
       drawChart(datosFormateados, cnvChartUno, indicador);
     } else {
       const datos = await getData(
@@ -83,7 +83,7 @@ export const fetchData = async () => {
         yyyyEnd
       ); // acá estoy ejecutando el API Request
       // drawTable(datos,dataTable) //acá estoy generando los valores de la tabla
-      const datosFormateados = formatData(datos); // acá esto leyendo los datos correctos para el gráfico
+      const datosFormateados = formatData(datos,indicador); // acá esto leyendo los datos correctos para el gráfico
       const datos2 = await getData(
         indicadorComparable,
         mmStart,
@@ -92,7 +92,7 @@ export const fetchData = async () => {
         yyyyEnd
       ); // acá estoy ejecutando el API Request
       // drawTable(datos2,dataTable) //acá estoy generando los valores de la tabla
-      const datosFormateados2 = formatData(datos2); // acá esto leyendo los datos correctos para el gráfico
+      const datosFormateados2 = formatData(datos2,indicadorComparable); // acá esto leyendo los datos correctos para el gráfico
       drawChartDos(
         cnvChartUno,
         datosFormateados,
