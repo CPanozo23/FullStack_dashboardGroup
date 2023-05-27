@@ -118,3 +118,4 @@ function readBankList(bankList) {
 function saveDataLS(banksList) {
   localStorage.setItem("banks", JSON.stringify(banksList));
 }
+

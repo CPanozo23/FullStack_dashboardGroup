@@ -29,17 +29,10 @@
                     <h5 class="card-title">Indicadores Financieros</h5>
                     <p class="card-text">Aquí encontrarás los últimos índices disponibles.</p>
                     <div class="card-detail">
-                        <div class="card-detail-col">
-                            <p class="card-text">Indice:</p>
-                            <p class="card-text">Indice:</p>
-                            <p class="card-text">Indice:</p>
-                            <p class="card-text">Indice:</p>
-                            <p class="card-text">Indice:</p>
-                            <p class="card-text">Indice:</p>
-                            <p class="card-text">Indice:</p>
+                        <div id="detalleIndices" class="card-detail-col">
 
                         </div>
-                        <div class="card-detail-col">
+                        <!-- <div class="card-detail-col">
                             <p class="card-text">Valor:</p>
                             <p class="card-text">Valor:</p>
                             <p class="card-text">Valor:</p>
@@ -47,7 +40,6 @@
                             <p class="card-text">Valor:</p>
                             <p class="card-text">Valor:</p>
                             <p class="card-text">Valor:</p>
-
                         </div>
                         <div class="card-detail-col">
                             <p class="card-text">Fecha:</p>
@@ -57,13 +49,13 @@
                             <p class="card-text">Fecha:</p>
                             <p class="card-text">Fecha:</p>
                             <p class="card-text">Fecha:</p>
-                        </div>
+                        </div> -->
                     </div>
                     <a href="#" class="btn btn-primary">Ir a Indicadores Financieros</a>
                     </div>
                 </div>
               </div>
-              <div class="col">
+                <div class="col">
                 <div class="card">
                     <div class="card-body">
                     <img src="./assets/images/groups.svg" class="card-img-top" alt="...">
@@ -96,7 +88,7 @@
                         INDICADORES
                     </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <!-- Inicio Sección con los indicadores financieros -->
                         <div id="header">
@@ -108,7 +100,7 @@
                                     </section>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1" >Íncide base</span>
-                                        <select id="selector" class="form-select" aria-label="Default select example">
+                                        <select id="selectIndex1" class="form-select" aria-label="Default select example">
                                             <option selected default value="dolar">Dólar</option>
                                             <option value="euro">Euro</option>
                                             <option value="ipc">IPC</option>
@@ -126,7 +118,7 @@
                                             <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" value ="no">
                                             <label class="btn btn-outline-primary" for="btncheck1">Comparar valores</label>
                                           </div>
-                                          <select id="selectorDos" class="form-select" aria-label="Default select example" disabled>
+                                          <select id="selectIndex2" class="form-select" aria-label="Default select example" disabled>
                                             <option selected default disabled>Seleccione</option>
                                             <option value="dolar">Dólar</option>
                                             <option value="euro">Euro</option>
@@ -161,10 +153,8 @@
                                 <article id="secc_graficos">
                                     <div class="primerGrafico">
                                         <h1 id="encabezadoGrafico">Resultados a mostrar para el periodo</h1>
-                                    <canvas class="graf" id="grafico1"></canvas>
+                                        <canvas class="graf" id="grafico1"></canvas>
                                     </div>
-                                    <canvas class="graf" id="grafico2"></canvas>
-                                    <canvas class="graf" id="grafico3"></canvas>
                                 </article>
                             </main>
                             <script src="./assets/js/main.js" type="module"></script>                
