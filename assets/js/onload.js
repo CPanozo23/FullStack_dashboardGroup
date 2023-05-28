@@ -100,7 +100,7 @@ function createBankList() {
   ];
 
   saveDataLS(banksList);
-  console.log("antes");
+  // console.log("antes");
   return banksList;
 }
 
