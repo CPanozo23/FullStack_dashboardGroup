@@ -1,10 +1,12 @@
-export const graph = (data, container, month, option) => {
+export const graph = (data, container, month, typeGraph, option) => {
   // 0              , 1             , 2    , 3        
   //[dataFormatWoman, dataFormatMen, color1, color2], employees, month, 2
   if (option === 1) {
-    construct1(data, container, month)
+    construct1(data, container, month, typeGraph)
   } else if (option === 2) {
-    construct2(data, container, month)
+    construct2(data, container, month, typeGraph)
+  } else if (option === 3) {
+    construct3(data, container, month, typeGraph)
   }
 }
 
@@ -90,6 +92,34 @@ function construct2(data, container, month){
             },
           }
         ],
+      },
+    },
+  })
+}
+
+function construct3(data, container, month, typeGraph){
+  console.log(data[0])
+  console.log(month)
+  const grafico = new Chart(container, {
+    type: typeGraph,
+    data: {
+      labels: data[0],
+      datasets: [
+        {
+          
+          label: "aa",
+          data: data[0],
+          borderColor: data[1],
+          backgroundColor: data[1],
+          borderWidth: 2,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: false,
+        },
       },
     },
   })

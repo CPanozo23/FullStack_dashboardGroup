@@ -1,24 +1,12 @@
 import { onload } from "./onload.js";
-//import { onload2 } from "./balance/onload2.js";
 import { mainBalance } from "./balance/mainBalance.js";
 import { mainBankInfo } from "./bankInfo/mainBankInfo.js";
 import * as mainIndicators from "./indicators/mainIndicators.js";
 
 /****************** [1] GENERAL ******************/
-const bankList = [];
-const bankList2 = [];
 const readData = async () => {
-  try {
-    // console.log("aaaa");
-    bankList = await onload();
-    // console.log("jojo");
-    alert("onload");
-    //bankList2 = await onload2();
-  } catch (error) {
-    // Manejar el error
-    console.log(error);
-  }
-};
+  await onload();
+}
 /****************** [2] INDICADORES ******************/
 
 // Defino todas las variables que utilizaré para manejo del DOM
@@ -39,22 +27,32 @@ document.getElementById("inputFechaInicial").addEventListener("change", mainIndi
 document.getElementById("inputFechaFinal").addEventListener("change", mainIndicators.cambio)
 
 /****************** [3] BANK INFO ******************/
-//[3.1] Use when clicked the bank of the list
-const divClick = document.getElementById("banks");
+const bankClick = document.getElementById('banks')
+const year = document.getElementById('selectYear')
+const typeGraph = document.getElementById('tipoGraficoBank')
 
-const selectedBank = async (event) => {
-  await mainBankInfo("bankClick", divClick, event);
-};
-divClick.addEventListener("click", selectedBank);
+const selectedBankInfo = async (event) => {
+  console.log(event.type)
+  document.getElementById("titlePage").innerHTML=""
+  document.getElementById('showInfoPersonal').hidden=true
+  if(bankClick.value==="0"){
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Primero seleccione un banco',
+      showConfirmButton: false,
+      timer: 2500
+    })
+  }else{
+    //alert("si")
+    await mainBankInfo(event.type)
+  }
+  
+}
 
-//[3.2] Use when clicked the button year
-const btnYear = document.getElementById("btnGeneralYear");
-
-const handleRequestBtn = async () => {
-  await mainBankInfo("yearClick");
-};
-
-btnYear.addEventListener("click", handleRequestBtn);
+bankClick.addEventListener("change", selectedBankInfo);
+year.addEventListener("change", selectedBankInfo);
+typeGraph.addEventListener("change", selectedBankInfo);
 
 /****************** [4] BALANCE ******************/
 //[4.1] Use when clicked the bank of the list
