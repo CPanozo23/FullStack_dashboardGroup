@@ -22,10 +22,12 @@ export const formatData = (datos, indicador) =>{
             data = datos.map((elemento) => parseFloat(elemento.Valor.replace(",",".")));
             break;
         case 'uf':
-            data = datos.map((elemento) => parseFloat(elemento.Valor.replace(".","")));
+            data = datos.map((elemento) => elemento.Valor.replace(".",""));
+            data = data.map((elemento) => elemento.replace(",","."));
             break;
         case 'utm':
-            data = datos.map((elemento) => parseFloat(elemento.Valor.replace(".","")));
+            data = datos.map((elemento) => elemento.Valor.replace(".",""));
+            data = data.map((elemento) => elemento.replace(",","."));
             break;
         }
    // console.log(labels, data)

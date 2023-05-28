@@ -1,4 +1,4 @@
-import { getData } from "./getData.js";
+import { getData, getLatestData } from "./getData.js";
 import { grafico, drawChart, drawChartDos } from "./charts.js";
 import { formatData } from "./formatData.js";
 
@@ -111,6 +111,13 @@ export function cambio() {
   getDates();
   fetchData();
 
+  document.getElementById('encabezadoGrafico').innerHTML=`
+    <h2> Resultados obtenidos:</h2> `
+    // <h2> Mostrando resultados obtenidos entre el  
+    // ${document.getElementById('inputFechaInicial').value} y el ${document.getElementById('inputFechaFinal').value}
+
+    // </h2> `
+
   let existingChart = Chart.getChart(document.getElementById('grafico1'));
   if (existingChart) {
       existingChart.destroy();
@@ -155,17 +162,31 @@ export function validaComparable(){
 }
 //Falta agregar la última fecha de obtención de los valores:
 // EJEMPLO: Valores al cierre del XX-XX-XXXX
-export function ObtieneIndices() {
-    const Indices = [
-        { Ind: "IPC", Valor:"100", Fecha: "27-04-2023"},
-        { Ind: "UF", Valor:"200", Fecha: "27-04-2023"},
-        { Ind: "Dolar", Valor:"300", Fecha: "27-04-2023"},
-        { Ind: "IPC", Valor:"100", Fecha: "27-04-2023"},
-        { Ind: "UF", Valor:"200", Fecha: "27-04-2023"},
-        { Ind: "Dolar", Valor:"300", Fecha: "27-04-2023"}
-    ]
-    Indices.forEach((el) => {
+
+// aquí definí la variable
+
+const muestraValoresIndices = async (indice, indiceId) => {
+        const cosa = await getData(indice,1,2023,5,2023);
+        const datosFormateados = formatData(cosa,indice)
+        // console.log(datosFormateados.data.slice(-1))
         document.getElementById("detalleIndices").innerHTML +=`
-            <p> ${el.Ind} al cierre de ${el.Fecha}: ${el.Valor} </p>`
-    });
+            <p>Valor ${indiceId.toUpperCase()}: ${datosFormateados.data.slice(-1)}</p>`
+}
+
+export const obtieneIndices = () => {
+
+  const Indices = [
+    { Ind: "dolar", identificador:"dolares"},
+    { Ind: "ipc", identificador:"IPCs"},
+    { Ind: "euro", identificador:"euros"},
+    { Ind: "tip", identificador:"TIPs"},
+    // { Ind: "tic", identificador:"TICs"},
+    { Ind: "uf", identificador:"UFs"},
+    { Ind: "utm", identificador:"UTMs"},
+  ]
+  // recorre los registros y los imprime en el dashboard
+  Indices.sort  
+  Indices.forEach((el) => {
+    console.log(el.identificador);
+    muestraValoresIndices(el.Ind, el.Ind)})
 }

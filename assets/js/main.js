@@ -9,9 +9,9 @@ const bankList = [];
 const bankList2 = [];
 const readData = async () => {
   try {
-    console.log("aaaa");
+    // console.log("aaaa");
     bankList = await onload();
-    console.log("jojo");
+    // console.log("jojo");
     alert("onload");
     //bankList2 = await onload2();
   } catch (error) {
@@ -23,7 +23,7 @@ const readData = async () => {
 
 // Defino todas las variables que utilizaré para manejo del DOM
 
-mainIndicators.ObtieneIndices()
+mainIndicators.obtieneIndices();
 
 document.getElementById("inputFechaInicial").value = mainIndicators.obtieneFecha(document.getElementById("selectorPeriodo").value);
 document.getElementById("inputFechaFinal").value = new Date().toJSON().split("T")[0];
