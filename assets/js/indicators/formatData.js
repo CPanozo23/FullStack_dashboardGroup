@@ -30,7 +30,7 @@ export const formatData = (datos, indicador) =>{
             data = data.map((elemento) => elemento.replace(",","."));
             break;
         }
-   // console.log(labels, data)
+    // console.log(labels, data)
     return {labels, data}    
 }
     // const labels = datos.serie.map((elemento) => elemento.fecha.split('T')[0])

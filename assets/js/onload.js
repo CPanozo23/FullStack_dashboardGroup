@@ -1,5 +1,33 @@
+import { graph } from './bankInfo/graph.js'
+import { formatData } from './bankInfo/formatData.js'
+import { makeRequest } from './bankInfo/makeRequest.js'
+import { cambio, obtieneFecha } from './indicators/mainIndicators.js';
+
 export const onload = async () => {
+  //[1] GENERAL ------------------------------
+  readOptionGraphs()
+  
   try {
+    //[2] INDICATORS ------------------------------
+    const indicesList = createIndicesList()
+    //console.log(indicesList)
+    readIndicesList(indicesList)
+   
+    document.getElementById('inputFechaInicial').value = obtieneFecha(24);
+    document.getElementById("inputFechaFinal").value = new Date().toJSON().split("T")[0];
+
+    const periodoList = [24, 12, 6, 3, 0]
+    const selectorPeriodo = document.getElementById('selectorPeriodo')
+    periodoList.forEach((el) => {
+      if(el===0){
+        selectorPeriodo.innerHTML+=`<option value="${el}">Selecciona rango</option>`
+      }else{
+        selectorPeriodo.innerHTML+=`<option value="${el}">Últimos ${el} meses</option>`
+      }
+    })
+    cambio()
+    
+    //[3] BANK INFO ------------------------------
     //button div banks
     const bankList = createBankList();
     readBankList(bankList);
@@ -12,12 +40,86 @@ export const onload = async () => {
       selectYear.innerHTML += `<option value="${i}">${i}</option>`;
     }
 
-    return bankList;
+
+    let lastYear = parseInt(new Date().getFullYear()-1)
+    //Create new chart
+    const data = await makeRequest(lastYear, '001', 'onload')
+    //Graphic with 1 data
+    const dataFormatAll = formatData(data, 3)
+    const employeesTotal = document.getElementById('graphEmployeesActual')
+    const color = 'purple'
+
+    
+    const month = ['Enero', 'Marzo', 'Mayo', 'Julio', 'Septiembre', 'Noviembre']
+
+    //Create new chart
+    graph([dataFormatAll, color], employeesTotal, month,'line', 1)
+
   } catch (error) {
-    console.log(error);
+    if (error.message.includes('internal')) {
+      texto = 'Intente más tarde'
+    } else {
+      texto = 'Algo salió mal'
+    }
+
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: texto,
+      showConfirmButton: false,
+      timer: 2500
+    })
   }
 };
 
+
+
+//[1] GENERAL
+function readOptionGraphs(){
+    const optionGraficos=`
+      <option selected default value="line">📈 Lineas</option>
+      <option value="bar">📊 Barras</option>`
+    
+    const tipoGraficoUno = document.getElementById('tipoGraficoUno')
+    const tipoGraficoDos = document.getElementById('tipoGraficoDos')
+    const tipoGraficoBank = document.getElementById('tipoGraficoBank')
+
+    tipoGraficoUno.innerHTML=optionGraficos
+    tipoGraficoDos.innerHTML=optionGraficos
+    tipoGraficoBank.innerHTML=optionGraficos
+  }
+
+//[2] INDICES LIST
+function createIndicesList() {
+  const indicesList = [
+      { id: 'dolar', indice: 'Dólar'},
+      { id: 'euro', indice: 'Euro'},
+      { id: 'ipc', indice: 'IPC'},
+      { id: 'tip', indice: 'Tasa Int. Promedio'},
+      { id: 'tmc', indice: 'Tasa Int. Máx. Convencional'},
+      { id: 'uf', indice: 'UF'},
+      { id: 'utm', indice: 'UTM'} 
+  ]
+  
+  //saveDataLS(indicesList)
+  return indicesList
+}
+
+function readIndicesList(indicesList) {
+  const selectIndice1 = document.getElementById('selectIndex1')
+  const selectIndice2 = document.getElementById('selectIndex2')
+  selectIndice2.innerHTML= `<option selected default disabled>Seleccione</option>`
+  
+  indicesList.forEach((el) => {
+    let option=`<option value="${el.id}">${el.indice}</option>`
+    selectIndice1.innerHTML += option
+    selectIndice2.innerHTML += option
+  })
+  
+}
+
+
+//[3] BANK LIST
 function createBankList() {
   const banksList = [
     {
@@ -105,17 +207,14 @@ function createBankList() {
 }
 
 function readBankList(bankList) {
-  let style =
-    "col-lg-3 col-md-4 col-sm-6 col-xs-12 d-flex align-items-center justify-content-center h-10 border border-primary bg-secondary-subtle cursor-pointer";
   const banks = document.getElementById("banks");
-
+  banks.innerHTML +=`<option value="0">Seleccione Banco</option>`
   bankList.forEach((elemento) => {
-    banks.innerHTML += `
-        <div class='${style}' id='${elemento.CodigoInstitucion}'>${elemento.NombreInstitucion}</div>`;
+    
+    banks.innerHTML += `<option value="${elemento.CodigoInstitucion}">${elemento.NombreInstitucion}</option>`
   });
 }
 
 function saveDataLS(banksList) {
   localStorage.setItem("banks", JSON.stringify(banksList));
 }
-
