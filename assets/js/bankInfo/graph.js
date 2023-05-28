@@ -10,9 +10,9 @@ export const graph = (data, container, month, typeGraph, option) => {
   }
 }
 
-function construct1(data, container, month){
+function construct1(data, container, month, typeGraph){
   const grafico = new Chart(container, {
-    type: 'line',
+    type: typeGraph,
     data: {
       labels: month,
       datasets: [
@@ -36,9 +36,9 @@ function construct1(data, container, month){
   })
 }
 
-function construct2(data, container, month){
+function construct2(data, container, month, typeGraph){
   const grafico = new Chart(container, {
-    type: 'line',
+    type: typeGraph,
     data: {
       labels: month,
       datasets: [
