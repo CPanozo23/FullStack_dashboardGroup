@@ -1,17 +1,17 @@
 export const formatData2 = (datos) => {
   const meses = [
-    'Enero',
-    'Febrero',
-    'Marzo',
-    'Abril',
-    'Mayo',
-    'Junio',
-    'Julio',
-    'Agosto',
-    'Septiembre',
-    'Octubre',
-    'Noviembre',
-    'Diciembre',
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
   ];
 
   const fechas = datos.CodigosBalances.map(
