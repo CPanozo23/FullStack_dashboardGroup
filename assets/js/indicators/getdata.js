@@ -5,20 +5,16 @@ const APIKEY = "24b05e37a01fcdc2b6473aa94098629009e6d6df";
 // URI Generica para la obtención de data
 // https://api.cmfchile.cl/api-sbifv3/recursos_api/ipc/periodo/2010/01/2023/03?apikey=24b05e37a01fcdc2b6473aa94098629009e6d6df&formato=JSON
 
-export const getData = async (
-  indicador,
-  mmStart,
-  yyyyStart,
-  mmEnd,
-  yyyyEnd
-) => {
-  let datos = [];
-  if (mmStart < 10) {
-    mmStart = "0" + mmStart;
-  }
-  if (mmEnd < 10) {
-    mmEnd = "0" + mmEnd;
-  }
+export const getData = async (indicador,mmStart,yyyyStart,mmEnd,yyyyEnd) => {
+    // console.log(indicador,mmStart,yyyyStart,mmEnd,yyyyEnd)
+    let datos = []
+    if (mmStart < 10){
+        mmStart = '0'+mmStart
+    }
+    if (mmEnd < 10){
+        mmEnd = '0'+mmEnd
+    }
+
   try {
     const respuesta = await axios.get(
       `https://api.cmfchile.cl/api-sbifv3/recursos_api/${indicador}/periodo/${yyyyStart}/${mmStart}/${yyyyEnd}/${mmEnd}?apikey=${APIKEY}&formato=JSON`
@@ -48,6 +44,7 @@ export const getData = async (
           break;
       }
       return datos;
+
     }
   } catch (error) {
     console.log("Algo falló");

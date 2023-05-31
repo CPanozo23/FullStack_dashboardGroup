@@ -1,67 +1,54 @@
-import { makeRequest } from "./makeRequest.js";
+import { makeRequest } from './makeRequest.js'
 import { formatDataBI } from "./formatData.js";
-import { graph } from "./graph.js";
+import { graph } from './graph.js'
 import { errores } from "../balance/mainBalance.js";
 
 export const mainBankInfo = async (type) => {
-  document.getElementById("graphEmployees").hidden = true;
-  document.getElementById("graphEmployees2").hidden = true;
+  document.getElementById('graphEmployees').hidden = true
+  document.getElementById('graphEmployees2').hidden = true
   //errores(3);
-  await handleRequest(type);
-};
+  await handleRequest(type)
+}
 
 const handleRequest = async (type) => {
   //obtener las 3 variables
-  let id = document.getElementById("banks").value;
-  let year = document.getElementById("selectYear").value;
-  let typeGraph = document.getElementById("tipoGraficoBank").value;
+  let id = document.getElementById("banks").value
+  let year = document.getElementById('selectYear').value
+  let typeGraph = document.getElementById('tipoGraficoBank').value
 
-  let search = true;
+  let search = true
   //verificar si el banco existe para ese año
-  const readBanks = JSON.parse(localStorage.getItem("banks"));
+  const readBanks = JSON.parse(localStorage.getItem('banks'))
   readBanks.forEach((element) => {
     if (element.CodigoInstitucion === id && element.Anio > year) {
-      search = false;
-
-      document.getElementById("showInfoPersonal").hidden = true;
-      //primero
+      search = false
+      document.getElementById('showInfoPersonal').hidden=true
+      
       Swal.fire({
-        position: "center",
-        icon: "error",
+        position: 'center',
+        icon: 'error',
         title: `No existen datos para ese año, intente desde ${element.Anio} en adelante`,
-        showConfirmButton: true,
-      });
+        showConfirmButton: true
+      })
+
     }
-  });
+  })
 
   if (search) {
     try {
-      document.getElementById("graphEmployees").hidden = false;
-      document.getElementById("graphEmployees2").hidden = false;
-      const data = await makeRequest(year, id, type);
-      document.getElementById("showInfoPersonal").hidden = false;
-      const month = [
-        "Enero",
-        "Febrero",
-        "Marzo",
-        "Abril",
-        "Mayo",
-        "Junio",
-        "Julio",
-        "Agosto",
-        "Septiembre",
-        "Octubre",
-        "Noviembre",
-        "Diciembre",
-      ];
-      console.log(data);
+      document.getElementById('graphEmployees').hidden = false
+      document.getElementById('graphEmployees2').hidden = false
+      const data = await makeRequest(year, id, type)
+      document.getElementById('showInfoPersonal').hidden=false
+      const month = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+      console.log(data)
       //Graphic with 2 datas
-      const dataFormatWoman = formatDataBI(data, 1);
-      const dataFormatMen = formatDataBI(data, 2);
+      const dataFormatWoman = formatData(data, 1)
+      const dataFormatMen = formatData(data, 2)
 
-      const employees = document.getElementById("graphEmployees");
-      const color1 = "rgba(255, 99, 132, 1)";
-      const color2 = "rgba(54, 162, 235, 1)";
+      const employees = document.getElementById('graphEmployees')
+      const color1 = 'rgba(255, 99, 132, 1)'
+      const color2 = 'rgba(54, 162, 235, 1)'
 
       // Destroy existing chart (if any)
       let existingChart = Chart.getChart(employees);
@@ -70,18 +57,12 @@ const handleRequest = async (type) => {
       }
 
       //Create new chart
-      graph(
-        [dataFormatWoman, dataFormatMen, color1, color2],
-        employees,
-        month,
-        typeGraph,
-        2
-      );
+      graph([dataFormatWoman, dataFormatMen, color1, color2], employees, month, typeGraph, 2)
 
       //Graphic with 1 data
-      const dataFormatAll = formatDataBI(data, 3);
-      const employeesTotal = document.getElementById("graphEmployees2");
-      const color3 = "purple";
+      const dataFormatAll = formatData(data, 3)
+      const employeesTotal = document.getElementById('graphEmployees2')
+      const color3 = 'purple'
 
       // Destroy existing chart
       existingChart = Chart.getChart(employeesTotal);
@@ -90,23 +71,28 @@ const handleRequest = async (type) => {
       }
 
       //Create new chart
-      graph([dataFormatAll, color3], employeesTotal, month, typeGraph, 1);
-    } catch (error) {
+      graph([dataFormatAll, color3], employeesTotal, month,typeGraph, 1)
+
+    }catch(error){
       //console.log(error.message)
-      let texto;
-      if (error.message.includes("internal")) {
-        texto = "Intente más tarde";
+      let texto
+      if (error.message.includes('internal')) {
+        texto = 'Intente más tarde'
       } else {
-        texto = "Algo salió mal";
+        texto = 'Algo salió mal'
       }
 
       Swal.fire({
-        position: "center",
-        icon: "error",
+        position: 'center',
+        icon: 'error',
         title: texto,
         showConfirmButton: false,
-        timer: 2500,
-      });
+        timer: 2500
+      })
+
+      
     }
   }
-}; //fin handle request
+
+}//fin handle request
+

@@ -1,3 +1,4 @@
+
 import { graph } from "./bankInfo/graph.js";
 //import { graphB } from "./balance/graph.js";
 import { formatDataBI } from "./bankInfo/formatData.js";
@@ -25,6 +26,37 @@ export const onload = async () => {
       }
     });
 
+
+
+export const onload = async () => {
+  //[1] GENERAL ------------------------------
+  readOptionGraphs()
+  
+  try {
+    //[2] INDICATORS ------------------------------
+    const indicesList = createIndicesList()
+    
+   
+    document.getElementById('inputFechaInicial').value = obtieneFecha(24);
+    document.getElementById("inputFechaFinal").value = new Date().toJSON().split("T")[0];
+    console.log(indicesList)
+    readIndicesList(indicesList)
+
+
+    const periodoList = [24, 12, 6, 3, 0]
+    const selectorPeriodo = document.getElementById('selectorPeriodo')
+    periodoList.forEach((el) => {
+      if(el===0){
+        selectorPeriodo.innerHTML+=`<option value="${el}">Selecciona rango</option>`
+      }else{
+        selectorPeriodo.innerHTML+=`<option value="${el}">Últimos ${el} meses</option>`
+      }
+    })
+
+    cambio()
+
+    
+//master
     //[3] BANK INFO ------------------------------
     //button div banks
     const bankList = createBankList();
@@ -38,6 +70,7 @@ export const onload = async () => {
       selectYear.innerHTML += `<option value="${i}">${i}</option>`;
     }
 
+//fabiola
     let lastYear = parseInt(new Date().getFullYear() - 1);
     //Create new chart
     const data = await makeRequest(lastYear, "001", "onload");
@@ -131,34 +164,87 @@ function readOptionGraphs() {
   tipoGraficoDos.innerHTML = optionGraficos;
   tipoGraficoBank.innerHTML = optionGraficos;
 }
+//master
+
+    let lastYear = parseInt(new Date().getFullYear()-1)
+    //Create new chart
+    const data = await makeRequest(lastYear, '001', 'onload')
+    //Graphic with 1 data
+    const dataFormatAll = formatData(data, 3)
+    const employeesTotal = document.getElementById('graphEmployeesActual')
+    const color = 'purple'
+
+    
+    const month = ['Enero', 'Marzo', 'Mayo', 'Julio', 'Septiembre', 'Noviembre']
+
+    //Create new chart
+    graph([dataFormatAll, color], employeesTotal, month,'line', 1)
+
+  } catch (error) {
+    if (error.message.includes('internal')) {
+      texto = 'Intente más tarde'
+    } else {
+      texto = 'Algo salió mal'
+    }
+
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: texto,
+      showConfirmButton: false,
+      timer: 2500
+    })
+  }
+};
+
+
+
+//[1] GENERAL
+function readOptionGraphs(){
+    const optionGraficos=`
+      <option selected default value="line">📈 Lineas</option>
+      <option value="bar">📊 Barras</option>`
+    
+    const tipoGraficoUno = document.getElementById('tipoGraficoUno')
+    const tipoGraficoDos = document.getElementById('tipoGraficoDos')
+    const tipoGraficoBank = document.getElementById('tipoGraficoBank')
+
+    tipoGraficoUno.innerHTML=optionGraficos
+    tipoGraficoDos.innerHTML=optionGraficos
+    tipoGraficoBank.innerHTML=optionGraficos
+  }
+//fin master
 
 //[2] INDICES LIST
 function createIndicesList() {
   const indicesList = [
-    { id: "dolar", indice: "Dólar" },
-    { id: "euro", indice: "Euro" },
-    { id: "ipc", indice: "IPC" },
-    { id: "tip", indice: "Tasa Int. Promedio" },
-    { id: "tmc", indice: "Tasa Int. Máx. Convencional" },
-    { id: "uf", indice: "UF" },
-    { id: "utm", indice: "UTM" },
-  ];
-
+      { id: 'dolar', indice: 'Dólar'},
+      { id: 'euro', indice: 'Euro'},
+      { id: 'ipc', indice: 'IPC'},
+      { id: 'tip', indice: 'Tasa Int. Promedio'},
+      { id: 'tmc', indice: 'Tasa Int. Máx. Convencional'},
+      { id: 'uf', indice: 'UF'},
+      { id: 'utm', indice: 'UTM'} 
+  ]
+  
   //saveDataLS(indicesList)
-  return indicesList;
+  return indicesList
 }
 
 function readIndicesList(indicesList) {
-  const selectIndice1 = document.getElementById("selectIndex1");
-  const selectIndice2 = document.getElementById("selectIndex2");
-  selectIndice2.innerHTML = `<option selected default disabled>Seleccione</option>`;
-
+  const selectIndice1 = document.getElementById('selectIndex1')
+  const selectIndice2 = document.getElementById('selectIndex2')
+  selectIndice2.innerHTML= `<option selected default disabled>Seleccione</option>`
+  
   indicesList.forEach((el) => {
-    let option = `<option value="${el.id}">${el.indice}</option>`;
-    selectIndice1.innerHTML += option;
-    selectIndice2.innerHTML += option;
-  });
+    let option=`<option value="${el.id}">${el.indice}</option>`
+    selectIndice1.innerHTML += option
+    selectIndice2.innerHTML += option
+  })
+  
 }
+
+
 
 //[3] BANK LIST
 function createBankList() {
@@ -269,9 +355,11 @@ function createBankList() {
 
 function readBankList(bankList) {
   const banks = document.getElementById("banks");
+
   banks.innerHTML += `<option value="0">Seleccione Banco</option>`;
   bankList.forEach((elemento) => {
     banks.innerHTML += `<option value="${elemento.CodigoInstitucion}">${elemento.NombreInstitucion}</option>`;
+
   });
 }
 
