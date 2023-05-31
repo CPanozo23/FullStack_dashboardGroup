@@ -16,15 +16,15 @@ mainIndicators.obtieneIndices();
 document.getElementById("inputFechaInicial").value = mainIndicators.obtieneFecha(document.getElementById("selectorPeriodo").value);
 document.getElementById("inputFechaFinal").value = new Date().toJSON().split("T")[0];
 
-document.getElementById("selectorPeriodo").addEventListener("change", mainIndicators.selectorDePeriodo);
+document.getElementById("selectorPeriodo").addEventListener("change", mainIndicators.selectorDePeriodo, false);
 document.getElementById("selectIndex1").addEventListener("change", mainIndicators.cambio, false);
 document.getElementById("selectIndex2").addEventListener("change", mainIndicators.cambio, false);
 document.getElementById("btncheck1").addEventListener("click", mainIndicators.validaComparable);
 
-document.getElementById("tipoGraficoUno").addEventListener("change", mainIndicators.cambio)
-document.getElementById("tipoGraficoDos").addEventListener("change", mainIndicators.cambio)
-document.getElementById("inputFechaInicial").addEventListener("change", mainIndicators.cambio)
-document.getElementById("inputFechaFinal").addEventListener("change", mainIndicators.cambio)
+document.getElementById("tipoGraficoUno").addEventListener("change", mainIndicators.cambio, false);
+document.getElementById("tipoGraficoDos").addEventListener("change", mainIndicators.cambio, false);
+document.getElementById("inputFechaInicial").addEventListener("change", mainIndicators.cambio, false);
+document.getElementById("inputFechaFinal").addEventListener("change", mainIndicators.cambio, false);
 
 /****************** [3] BANK INFO ******************/
 const bankClick = document.getElementById('banks')

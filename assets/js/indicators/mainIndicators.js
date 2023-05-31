@@ -1,4 +1,4 @@
-import { getData, getLatestData } from "./getData.js";
+import { getData } from "./getData.js";
 import { grafico, drawChart, drawChartDos } from "./charts.js";
 import { formatData } from "./formatData.js";
 
@@ -40,8 +40,8 @@ let mmStart = "";
 let yyyyStart = "";
 let mmEnd = "";
 let yyyyEnd = "";
-let GraficoUno = "line";
-let GraficoDos = "line";
+// let GraficoUno = "line";
+// let GraficoDos = "line";
 
 export function getDates() {
   const startDateValue = new Date(
@@ -54,6 +54,7 @@ export function getDates() {
   mmEnd = endDateValue.getUTCMonth() + 1;
   yyyyStart = startDateValue.getUTCFullYear();
   yyyyEnd = endDateValue.getUTCFullYear();
+    // console.log(mmStart,mmEnd,yyyyStart,yyyyEnd)
 }
 
 export const fetchData = async () => {
@@ -137,9 +138,9 @@ export function selectorDePeriodo() {
         break;
       default:
         document.getElementById("inputFechaInicial").value = obtieneFecha(document.getElementById("selectorPeriodo").value);
-        document.getElementById("inputFechaFinal").value = new Date().toJSON().split("T")[0];
         document.getElementById("inputFechaInicial").value = obtieneFecha(document.getElementById("selectorPeriodo").value);
         document.getElementById("inputFechaInicial").setAttribute("disabled","disabled");
+        document.getElementById("inputFechaFinal").value = new Date().toJSON().split("T")[0];
         document.getElementById("inputFechaFinal").setAttribute("disabled","disabled")
         cambio();
         break;
@@ -165,8 +166,12 @@ export function validaComparable(){
 
 // aquí definí la variable
 
-const muestraValoresIndices = async (indice, indiceId) => {
-        const cosa = await getData(indice,1,2023,5,2023);
+const muestraValoresIndices = async (indice,indiceId) => {
+  const ultFecha = new Date().toJSON().split("T")[0];
+  const fecha = new Date(ultFecha);
+  const ultMM = fecha.getUTCMonth()+1;
+  const ultYYYY = fecha.getUTCFullYear();
+        const cosa = await getData(indice,ultMM-1,ultYYYY,ultMM,ultYYYY);
         const datosFormateados = formatData(cosa,indice)
         // console.log(datosFormateados.data.slice(-1))
         document.getElementById("detalleIndices").innerHTML +=`
@@ -174,19 +179,15 @@ const muestraValoresIndices = async (indice, indiceId) => {
 }
 
 export const obtieneIndices = () => {
-
   const Indices = [
-    { Ind: "dolar", identificador:"dolares"},
-    { Ind: "ipc", identificador:"IPCs"},
+    { Ind: "dolar", identificador:"Dólar"},
+    { Ind: "ipc", identificador:"IPC"},
     { Ind: "euro", identificador:"euros"},
     { Ind: "tip", identificador:"TIPs"},
-    // { Ind: "tic", identificador:"TICs"},
-    { Ind: "uf", identificador:"UFs"},
     { Ind: "utm", identificador:"UTMs"},
+    { Ind: "uf", identificador:"UF"},
   ]
-  // recorre los registros y los imprime en el dashboard
-  Indices.sort  
-  Indices.forEach((el) => {
-    console.log(el.identificador);
-    muestraValoresIndices(el.Ind, el.Ind)})
+  Indices.map((el) => {
+    // console.log(el.identificador);
+    muestraValoresIndices(el.Ind, el.identificador)})
 }

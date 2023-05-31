@@ -1,6 +1,7 @@
 import { graph } from './bankInfo/graph.js'
 import { formatData } from './bankInfo/formatData.js'
 import { makeRequest } from './bankInfo/makeRequest.js'
+import { cambio, obtieneFecha } from './indicators/mainIndicators.js';
 
 export const onload = async () => {
   //[1] GENERAL ------------------------------
@@ -9,8 +10,13 @@ export const onload = async () => {
   try {
     //[2] INDICATORS ------------------------------
     const indicesList = createIndicesList()
+    
+   
+    document.getElementById('inputFechaInicial').value = obtieneFecha(24);
+    document.getElementById("inputFechaFinal").value = new Date().toJSON().split("T")[0];
     console.log(indicesList)
     readIndicesList(indicesList)
+
 
     const periodoList = [24, 12, 6, 3, 0]
     const selectorPeriodo = document.getElementById('selectorPeriodo')
@@ -21,6 +27,9 @@ export const onload = async () => {
         selectorPeriodo.innerHTML+=`<option value="${el}">Últimos ${el} meses</option>`
       }
     })
+
+    cambio()
+
     
     //[3] BANK INFO ------------------------------
     //button div banks
@@ -213,4 +222,3 @@ function readBankList(bankList) {
 function saveDataLS(banksList) {
   localStorage.setItem("banks", JSON.stringify(banksList));
 }
-
