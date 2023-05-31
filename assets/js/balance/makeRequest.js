@@ -1,5 +1,5 @@
 export const makeRequest = async (codigoBanco, codigoCuentas, year) => {
-  // alert("en MR");
+  //alert("en MR");
   console.log(codigoCuentas);
   console.log(codigoBanco);
   // alert("en make: " + year);
@@ -17,6 +17,7 @@ export const makeRequest = async (codigoBanco, codigoCuentas, year) => {
       return datos;
     }
   } catch (error) {
-    throw new Error();
+    //throw new Error();
+    console.log(error);
   }
 };

@@ -4,10 +4,37 @@ import { formatData } from "./formatData.js";
 import { formatData2 } from "./formatData2.js";
 
 export const mainBalance = async (year, bancoId, typeGraph) => {
-  handleRequestGeneral(year, bancoId, typeGraph);
+  //document.getElementById("showBalance").hidden = true;
+  let search = true;
+  if (year == 2022) {
+    errores(3);
+    search = false;
+  } else {
+    const readBanks = JSON.parse(localStorage.getItem("banks"));
+
+    readBanks.forEach((element) => {
+      if (element.CodigoInstitucion === bancoId && element.AnioBalance > year) {
+        search = false;
+        //primero
+        errores(1, element.AnioBalance);
+      }
+    });
+
+    if (search === true) {
+      handleRequestGeneral(year, bancoId, typeGraph);
+      document.getElementById("showBalance").hidden = false;
+    }
+  }
+  //segundo con retorno
+  /*
+  
+  //verificar si el banco existe para ese año
+  
+   */
 };
 
 const handleRequestGeneral = async (year, bancoId, typeGraph) => {
+  //alert("aaa");
   let id = document.getElementById("idBank").value;
 
   handleRequest1(year, bancoId, typeGraph);
@@ -27,6 +54,7 @@ const handleRequest1 = async (year, idBanco, tipoGrafico) => {
     //grafico 1
     const canva = document.getElementById("graficoBalance1");
     const datosFormateados = formatData(datos);
+    console.log("datos formateados: " + datosFormateados);
     const color1 = "rgb(54, 162, 235)";
     // console.log(datosFormateados);
 
@@ -79,22 +107,7 @@ const handleRequest2 = async (year, idBanco, tipoGrafico) => {
     }
     graph(datosFormateados, canva, tipoGrafico, color2);
   } catch (error) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
-    Toast.fire({
-      icon: "error",
-      title: "No se encuentran datos para activos y efectivos en este año",
-    });
+    errores(3);
   }
 };
 
@@ -111,3 +124,36 @@ function clickedBank(divClick, event) {
     }
   });
 }
+
+export const errores = async (numero, anio) => {
+  document.getElementById("showBalance").hidden = true;
+  if (numero === 3) {
+    //mostrar error balance
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    Toast.fire({
+      icon: "error",
+      title: "No se encuentran datos para activos y efectivos en este año",
+    });
+  } else if (numero === 1) {
+    //mutuo
+    document.getElementById("showInfoPersonal").hidden = true;
+    //primero
+    Swal.fire({
+      position: "center",
+      icon: "error",
+      title: `No existen datos para ese año, intente desde ${anio} en adelante`,
+      showConfirmButton: true,
+    });
+  }
+};

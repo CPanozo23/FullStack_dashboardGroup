@@ -65,7 +65,13 @@ const selectedBankInfo = async (event) => {
   } else {
     //alert("si")
     await mainBankInfo(event.type);
+
     await mainBalance(year.value, bankClick.value, typeGraph.value);
+    //no existen datos de perfil el 2016 pero si de balance
+    //numerico que valide ambas fechas y luego da el mensaje
+    //1)NINGUNO
+    //2) SIN PERFIL
+    //3) SIN BALANCE
   }
 };
 
