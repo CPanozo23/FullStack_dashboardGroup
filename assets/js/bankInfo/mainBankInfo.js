@@ -1,11 +1,12 @@
 import { makeRequest } from './makeRequest.js'
-import { formatData } from './formatData.js'
+import { formatDataBI } from "./formatData.js";
 import { graph } from './graph.js'
+import { errores } from "../balance/mainBalance.js";
 
 export const mainBankInfo = async (type) => {
   document.getElementById('graphEmployees').hidden = true
   document.getElementById('graphEmployees2').hidden = true
-
+  //errores(3);
   await handleRequest(type)
 }
 
@@ -94,3 +95,4 @@ const handleRequest = async (type) => {
   }
 
 }//fin handle request
+

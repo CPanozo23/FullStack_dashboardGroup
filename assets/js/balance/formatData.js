@@ -1,17 +1,17 @@
 export const formatData = (datos) => {
   const meses = [
-    'Enero',
-    'Febrero',
-    'Marzo',
-    'Abril',
-    'Mayo',
-    'Junio',
-    'Julio',
-    'Agosto',
-    'Septiembre',
-    'Octubre',
-    'Noviembre',
-    'Diciembre',
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
   ];
 
   const fechas = datos.CodigosBalances.map(
@@ -22,7 +22,7 @@ export const formatData = (datos) => {
     parseInt(elemento.MonedaTotal)
   );
 
-  console.log(values);
+  console.log("fd " + values);
 
   // const descripcion = datos2.CodigosBalances.map(
   //   (elemento) => elemento.DescripicionCuenta
@@ -32,6 +32,7 @@ export const formatData = (datos) => {
 
   //   console.log(fechas);
   //   console.log(values);
+
   return {
     labels: fechas,
     data: values,

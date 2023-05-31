@@ -1,5 +1,5 @@
 export const makeRequest = async (codigoBanco, codigoCuentas, year) => {
-  // alert("en MR");
+  //alert("en MR");
   console.log(codigoCuentas);
   console.log(codigoBanco);
   // alert("en make: " + year);
@@ -7,8 +7,6 @@ export const makeRequest = async (codigoBanco, codigoCuentas, year) => {
   try {
     console.log(codigoCuentas);
     let respuesta = await axios.get(
-      // `https://api.cmfchile.cl/api-sbifv3/recursos_api/balances/${year}/cuentas/${codigoCuentas}/instituciones/${codigoInstitucion}?apikey=5598691df818f21be6278618948092222c0ff50f&formato=json`
-
       `https://api.cmfchile.cl/api-sbifv3/recursos_api/balances/${year}/cuentas/${codigoCuentas}/instituciones/${codigoBanco}?apikey=5598691df818f21be6278618948092222c0ff50f&formato=json`
     );
 
@@ -19,11 +17,7 @@ export const makeRequest = async (codigoBanco, codigoCuentas, year) => {
       return datos;
     }
   } catch (error) {
-    throw new Error();
+    //throw new Error();
+    console.log(error);
   }
 };
-
-//!para despues
-// `https://api.cmfchile.cl/api-sbifv3/recursos_api/balances/${year}/cuentas/${codigoCuentas}/instituciones/${codigoInstitucion}?apikey=5598691df818f21be6278618948092222c0ff50f&formato=json`
-
-// 'https://api.cmfchile.cl/api-sbifv3/recursos_api/balances/2009/cuentas/1100000/instituciones/001?apikey=5598691df818f21be6278618948092222c0ff50f&formato=json'

@@ -1,96 +1,70 @@
-//import { onload2 } from "./onload2.js";
 import { makeRequest } from "./makeRequest.js";
-// import { makeRequest2 } from './makeRequest2.js';
-//import { drawTable } from './drawTable.js';
 import { graph } from "./graph.js";
 import { formatData } from "./formatData.js";
 import { formatData2 } from "./formatData2.js";
 
-/*
-const readData = async () => {
-  try {
-    const bankList = await onload();
-
-    //const button = document.getElementById('btnGeneralYear');
-    //button.addEventListener('click', handleRequest)
-  } catch (error) {
-    // Manejar el error
-  }
-};*/
-//document.addEventListener("DOMContentLoaded", readData);
-// import { graphPie } from './graphPie.js';
-//const input = document.getElementById('indicador'); divClick
-const bank = document.getElementById("divClick");
-const button = document.getElementById("consultar");
-//const select = document.getElementById("year");
-export const mainBalance = async (option, divClick, event) => {
-  //alert("en main balance");
-  if (option === "bankClick") {
-    //clickedBank(divClick, event);
-  } else if (option === "yearClick") {
-    //handleRequestGeneral();
-  }
-};
-
-const handleRequestGeneral = async () => {
-  let id = document.getElementById("idBank").value;
-  let year = document.getElementById("selectYear").value;
-  //alert("año en el general: " + year);
+export const mainBalance = async (year, bancoId, typeGraph) => {
+  //document.getElementById("showBalance").hidden = true;
   let search = true;
-  if (id === "") {
-    document.getElementById("titlePage").innerHTML =
-      "Primero seleccione un banco";
+  if (year == 2022) {
+    errores(3);
     search = false;
   } else {
     const readBanks = JSON.parse(localStorage.getItem("banks"));
+
     readBanks.forEach((element) => {
-      if (element.CodigoInstitucion === id && element.Anio > year) {
-        document.getElementById("titlePage").innerHTML =
-          "No existen datos para ese año";
+      if (element.CodigoInstitucion === bancoId && element.AnioBalance > year) {
         search = false;
+        //primero
+        errores(1, element.AnioBalance);
       }
     });
+
+    if (search === true) {
+      handleRequestGeneral(year, bancoId, typeGraph);
+      document.getElementById("showBalance").hidden = false;
+    }
   }
-  if (search) {
-    //alert("en el search");
-    handleRequest1(year);
-    handleRequest2(year);
-  }
+  //segundo con retorno
+  /*
+  
+  //verificar si el banco existe para ese año
+  
+   */
 };
 
-const handleRequest1 = async (year) => {
-  //console.log('hola');
-  //console.log(year.value);
-  //const indicador = input.value;
-  try {
-    // const respuesta = await axios.get(
-    //   'https://api.cmfchile.cl/api-sbifv3/recursos_api/balances/2009/cuentas/1100000/instituciones/001?apikey=5598691df818f21be6278618948092222c0ff50f&formato=json'
-    // );
-    // const datos = respuesta.data;
-    let cuenta = "1100000";
-    let idBanco = document.getElementById("idBank").value;
+const handleRequestGeneral = async (year, bancoId, typeGraph) => {
+  //alert("aaa");
+  let id = document.getElementById("idBank").value;
 
-    //let year = document.getElementById("selectYear").value;
+  handleRequest1(year, bancoId, typeGraph);
+  handleRequest2(year, bancoId, typeGraph);
+};
+
+const handleRequest1 = async (year, idBanco, tipoGrafico) => {
+  // console.log("estoy en el main bl", year, idBanco);
+  try {
+    let cuenta = "1100000";
+    console.log("aqui probando");
 
     //alert("año en hr1: " + year);
-    const datos = await makeRequest(idBanco, cuenta, year);
+    const datos = await makeRequest(idBanco, cuenta, year, tipoGrafico);
     console.log(datos);
 
-    //!esto es para ejecutar la funcion drawTable en el contenedor
-    // const container = document.getElementById('resultados');
-    // drawTable(datos.CodigosBalances, container);
-    //!fin
+    //grafico 1
     const canva = document.getElementById("graficoBalance1");
     const datosFormateados = formatData(datos);
+    console.log("datos formateados: " + datosFormateados);
+    const color1 = "rgb(54, 162, 235)";
     // console.log(datosFormateados);
-    // Destroy existing chart
 
     let existingChart = Chart.getChart(canva);
 
     if (existingChart) {
       existingChart.destroy();
     }
-    graph(datosFormateados, canva, "bar");
+
+    graph(datosFormateados, canva, tipoGrafico, color1);
   } catch (error) {
     const Toast = Swal.mixin({
       toast: true,
@@ -106,66 +80,42 @@ const handleRequest1 = async (year) => {
 
     Toast.fire({
       icon: "error",
-      title: "Ha ocurrido un problema",
+      title: "No se encuentran datos para activos y efectivo en este año",
     });
   }
 };
 
-const handleRequest2 = async (year) => {
+const handleRequest2 = async (year, idBanco, tipoGrafico) => {
   console.log("holaa");
   //const indicador = input.value;
   try {
     let cuenta = "1000000";
-    let idBanco = document.getElementById("idBank").value;
-    //console.log(cuenta);
-    //alert(idBanco);
-    //idBanco=document.getElementById("idBank")
 
-    const datos = await makeRequest(idBanco, cuenta, year);
+    const datos = await makeRequest(idBanco, cuenta, year, tipoGrafico);
     console.log(datos);
-    console.log("datos2222222");
+    // console.log("datos2222222");
+
+    //grafico 2
     const canva = document.getElementById("graficoBalance2");
     const datosFormateados = formatData2(datos);
     // console.log(datosFormateados);
+    const color2 = "rgb(255, 99, 132)";
     let existingChart = Chart.getChart(canva);
 
     if (existingChart) {
       existingChart.destroy();
     }
-    graph(datosFormateados, canva, "line");
+    graph(datosFormateados, canva, tipoGrafico, color2);
   } catch (error) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
-    Toast.fire({
-      icon: "error",
-      title: "Ha ocurrido un problema",
-    });
+    errores(3);
   }
 };
 
-button.addEventListener("click", handleRequestGeneral);
-
 function clickedBank(divClick, event) {
-  // Compare the id of the selected div with the id of the bank listing
-  //console.log('obtener todos los divd');
   const links = divClick.querySelectorAll("div");
   //console.log(links);
-
   //search id from list of bank
   links.forEach((link) => {
-    //console.log(link.id);
-    //console.log('evento del id:');
-    //console.log(event.target.id);
     if (event.target.id === link.id) {
       //console.log('banco encontrado');
       document.getElementById("idBank").value = event.target.id;
@@ -174,11 +124,36 @@ function clickedBank(divClick, event) {
     }
   });
 }
-//[3.1] Use when clicked the bank of the list
-const divClick = document.getElementById("banks");
 
-const selectedBank = async (event) => {
-  //console.log('en selectedBank');
-  await clickedBank(divClick, event);
+export const errores = async (numero, anio) => {
+  document.getElementById("showBalance").hidden = true;
+  if (numero === 3) {
+    //mostrar error balance
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    Toast.fire({
+      icon: "error",
+      title: "No se encuentran datos para activos y efectivos en este año",
+    });
+  } else if (numero === 1) {
+    //mutuo
+    document.getElementById("showInfoPersonal").hidden = true;
+    //primero
+    Swal.fire({
+      position: "center",
+      icon: "error",
+      title: `No existen datos para ese año, intente desde ${anio} en adelante`,
+      showConfirmButton: true,
+    });
+  }
 };
-divClick.addEventListener("click", selectedBank);
