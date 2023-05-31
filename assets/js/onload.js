@@ -10,11 +10,13 @@ export const onload = async () => {
   try {
     //[2] INDICATORS ------------------------------
     const indicesList = createIndicesList()
-    //console.log(indicesList)
-    readIndicesList(indicesList)
+    
    
     document.getElementById('inputFechaInicial').value = obtieneFecha(24);
     document.getElementById("inputFechaFinal").value = new Date().toJSON().split("T")[0];
+    console.log(indicesList)
+    readIndicesList(indicesList)
+
 
     const periodoList = [24, 12, 6, 3, 0]
     const selectorPeriodo = document.getElementById('selectorPeriodo')
@@ -25,7 +27,9 @@ export const onload = async () => {
         selectorPeriodo.innerHTML+=`<option value="${el}">Últimos ${el} meses</option>`
       }
     })
+
     cambio()
+
     
     //[3] BANK INFO ------------------------------
     //button div banks
@@ -202,7 +206,7 @@ function createBankList() {
   ];
 
   saveDataLS(banksList);
-  // console.log("antes");
+  console.log("antes");
   return banksList;
 }
 

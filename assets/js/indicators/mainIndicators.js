@@ -175,7 +175,7 @@ const muestraValoresIndices = async (indice,indiceId) => {
         const datosFormateados = formatData(cosa,indice)
         // console.log(datosFormateados.data.slice(-1))
         document.getElementById("detalleIndices").innerHTML +=`
-            <p>Valor ${indiceId.toUpperCase()}: ${datosFormateados.data.slice(-1)}</p>`
+            <p class="text-left">Valor ${indiceId.toUpperCase()}: ${datosFormateados.data.slice(-1)}</p>`
 }
 
 export const obtieneIndices = () => {
