@@ -5,7 +5,7 @@
 * [3. WebSite](#3-WebSite)
 * [4. Equipo](#4-Equipo)
 
-## 1. Introduction
+## 1. Introducción
 
 Este es el tercer proyecto creado para Bootcamp Full Stack con JavaScript, el cual se ha desarrollado grupalmente
 
@@ -39,7 +39,7 @@ Como esta fue una actividad de grupo, cada miembro del equipo estableció una co
 
     Además, para analizar los movimientos del banco, se ve dos cuentas principales de su balance: el efectivo y los activos. Estos datos se presentan en gráficos que permiten visualizar su evolución y comprender mejor la situación financiera del banco en el período analizado.
 
- **d. Alertas**
+ - **d. Alertas**
 
     En el caso de los gráficos de empleados, debido a que se realiza una consulta por cada mes del año seleccionado, existe un tiempo de carga antes de que el gráfico se muestre. Para informar al usuario sobre esto, se agrega mensajes que indican que los datos se están cargando.
 
@@ -49,8 +49,11 @@ Como esta fue una actividad de grupo, cada miembro del equipo estableció una co
 
 ## 4. Equipo
 
-    Nuestro equipo está compuesto por:
-     - [Jonathan Hernández](https://github.com/CPanozo23)
-     - [Fabiola Núñez](https://github.com/fabiolanunez)
-     - [Cecilia Panozo](https://github.com/CPanozo23)
+Nuestro equipo está compuesto por:
+    
+[Jonathan Hernández: https://github.com/Jhernandez84](https://github.com/Jhernandez84)
+    
+[Fabiola Núñez: https://github.com/fabiolanunez](https://github.com/fabiolanunez)
+    
+[Cecilia Panozo: https://github.com/CPanozo23](https://github.com/CPanozo23)
 
