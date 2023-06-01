@@ -19,7 +19,7 @@ export const getData = async (indicador,mmStart,yyyyStart,mmEnd,yyyyEnd) => {
         switch (indicador) {
             case 'ipc':
                 //datos = respuesta.data.IPCs;
-                datos = respuesta.data.Dolares;
+                datos = respuesta.data.IPCs;
                 break;
             case 'dolar':
                 datos = respuesta.data.Dolares;
