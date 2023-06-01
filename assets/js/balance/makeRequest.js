@@ -1,4 +1,4 @@
-export const makeRequest = async (codigoBanco, codigoCuentas, year) => {
+export const makeRequestB = async (codigoBanco, codigoCuentas, year) => {
   //alert("en MR");
   console.log(codigoCuentas);
   console.log(codigoBanco);

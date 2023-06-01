@@ -1,23 +1,21 @@
-import { makeRequest } from './makeRequest.js'
+import { makeRequestBI } from './makeRequest.js'
 import { formatDataBI } from "./formatData.js";
 import { graph } from './graph.js'
-import { errores } from "../balance/mainBalance.js";
-
+  
 export const mainBankInfo = async (type) => {
   document.getElementById('graphEmployees').hidden = true
   document.getElementById('graphEmployees2').hidden = true
-  //errores(3);
   await handleRequest(type)
 }
 
 const handleRequest = async (type) => {
-  //obtener las 3 variables
+  //3 VARIABLES
   let id = document.getElementById("banks").value
   let year = document.getElementById('selectYear').value
   let typeGraph = document.getElementById('tipoGraficoBank').value
 
   let search = true
-  //verificar si el banco existe para ese año
+  //IF EXIST BANK INFO IN YEAR
   const readBanks = JSON.parse(localStorage.getItem('banks'))
   readBanks.forEach((element) => {
     if (element.CodigoInstitucion === id && element.Anio > year) {
@@ -38,13 +36,13 @@ const handleRequest = async (type) => {
     try {
       document.getElementById('graphEmployees').hidden = false
       document.getElementById('graphEmployees2').hidden = false
-      const data = await makeRequest(year, id, type)
+      const data = await makeRequestBI(year, id, type)
       document.getElementById('showInfoPersonal').hidden=false
       const month = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
       console.log(data)
       //Graphic with 2 datas
-      const dataFormatWoman = formatData(data, 1)
-      const dataFormatMen = formatData(data, 2)
+      const dataFormatWoman = formatDataBI(data, 1)
+      const dataFormatMen = formatDataBI(data, 2)
 
       const employees = document.getElementById('graphEmployees')
       const color1 = 'rgba(255, 99, 132, 1)'
@@ -60,7 +58,7 @@ const handleRequest = async (type) => {
       graph([dataFormatWoman, dataFormatMen, color1, color2], employees, month, typeGraph, 2)
 
       //Graphic with 1 data
-      const dataFormatAll = formatData(data, 3)
+      const dataFormatAll = formatDataBI(data, 3)
       const employeesTotal = document.getElementById('graphEmployees2')
       const color3 = 'purple'
 

@@ -33,7 +33,3 @@ export const formatData = (datos, indicador) =>{
     // console.log(labels, data)
     return {labels, data}    
 }
-    // const labels = datos.serie.map((elemento) => elemento.fecha.split('T')[0])
-    // const data = datos.serie.map((elemento) => elemento.valor)
-    // labels.reverse()
-    // data.reverse()

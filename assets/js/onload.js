@@ -1,32 +1,11 @@
 
 import { graph } from "./bankInfo/graph.js";
-//import { graphB } from "./balance/graph.js";
+import { graphB } from "./balance/graph.js";
 import { formatDataBI } from "./bankInfo/formatData.js";
-//import { formatDataB } from "./balance/formatData.js";
-import { makeRequest } from "./bankInfo/makeRequest.js";
-//import { makeRequestB } from "./balance/makeRequest.js";
-
-export const onload = async () => {
-  //[1] GENERAL ------------------------------
-  readOptionGraphs();
-
-  try {
-    //[2] INDICATORS ------------------------------
-    const indicesList = createIndicesList();
-    console.log(indicesList);
-    readIndicesList(indicesList);
-
-    const periodoList = [24, 12, 6, 3, 0];
-    const selectorPeriodo = document.getElementById("selectorPeriodo");
-    periodoList.forEach((el) => {
-      if (el === 0) {
-        selectorPeriodo.innerHTML += `<option value="${el}">Selecciona rango</option>`;
-      } else {
-        selectorPeriodo.innerHTML += `<option value="${el}">Últimos ${el} meses</option>`;
-      }
-    });
-
-
+import { formatDataB } from "./balance/formatData.js";
+import { makeRequestBI } from "./bankInfo/makeRequest.js";
+import { makeRequestB } from "./balance/makeRequest.js";
+import { cambio, obtieneFecha } from './indicators/mainIndicators.js';
 
 export const onload = async () => {
   //[1] GENERAL ------------------------------
@@ -35,14 +14,8 @@ export const onload = async () => {
   try {
     //[2] INDICATORS ------------------------------
     const indicesList = createIndicesList()
-    
-   
-    document.getElementById('inputFechaInicial').value = obtieneFecha(24);
-    document.getElementById("inputFechaFinal").value = new Date().toJSON().split("T")[0];
     console.log(indicesList)
     readIndicesList(indicesList)
-
-
     const periodoList = [24, 12, 6, 3, 0]
     const selectorPeriodo = document.getElementById('selectorPeriodo')
     periodoList.forEach((el) => {
@@ -53,15 +26,15 @@ export const onload = async () => {
       }
     })
 
+    document.getElementById('inputFechaInicial').value = obtieneFecha(24);
+    document.getElementById("inputFechaFinal").value = new Date().toJSON().split("T")[0];
+   
     cambio()
-
     
-//master
     //[3] BANK INFO ------------------------------
     //button div banks
     const bankList = createBankList();
     readBankList(bankList);
-
     //available information in the SBIF API since 2008
     const selectYear = document.getElementById("selectYear");
     //selectYear.innerHTML = `<option value='2022' selected>2022</option>`
@@ -70,70 +43,31 @@ export const onload = async () => {
       selectYear.innerHTML += `<option value="${i}">${i}</option>`;
     }
 
-//fabiola
-    let lastYear = parseInt(new Date().getFullYear() - 1);
+    let lastYear = parseInt(new Date().getFullYear()-1)
     //Create new chart
-    const data = await makeRequest(lastYear, "001", "onload");
+
+    const data = await makeRequestBI(lastYear, '001', 'onload')
+
     //Graphic with 1 data
-    const dataFormatAll = formatDataBI(data, 3);
-    const employeesTotal = document.getElementById("graphEmployeesActual");
-    const color = "purple";
-
-    const month = [
-      "Enero",
-      "Marzo",
-      "Mayo",
-      "Julio",
-      "Septiembre",
-      "Noviembre",
-    ];
+    const dataFormatAll = formatDataBI(data, 3)
+    const employeesTotal = document.getElementById('graphEmployeesActual')
+    const color = 'purple'
+    const month = ['Enero', 'Marzo', 'Mayo', 'Julio', 'Septiembre', 'Noviembre']
 
     //Create new chart
-    graph([dataFormatAll, color], employeesTotal, month, "line", 1);
-
+    graph([dataFormatAll, color], employeesTotal, month,'line', 1)
+    
     //BALANCE
-    //faltan datos
-    //const datos = await makeRequestB("001", 1000000, 2021, "line");
-    //const datosNuevos = formatDataB(datos);
+    const datos = await makeRequestB("001", 1000000, 2021, "line");
+    console.log(datos)
+    const datosNuevos = formatDataB(datos);
     const colorEfectivo = "green";
     const graficoEfectivo = document.getElementById("graficoEfectivo");
 
-    //graphB(datosNuevos, graficoEfectivo, "line", colorEfectivo, month);
+    graphB(datosNuevos, graficoEfectivo, "line", colorEfectivo, month);
 
-    //grafico efectivo
-    /*
-    const datosEfectivo = datosNuevos;
-    const labelsEfectivo = month;
-    const valuesEfectivo = datosEfectivo.data;
-    
-
-    const datosFormateadosEfectivo = {
-      labels: labelsEfectivo,
-      data: valuesEfectivo,
-    };
-
-    new Chart(graficoEfectivo, {
-      type: "bar",
-      data: {
-        labels: datosFormateadosEfectivo,
-        datasets: [
-          {
-            label: "Datos de Efectivo",
-            data: datosFormateadosEfectivo.data,
-            backgroundColor: colorEfectivo,
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      },
-    });*/
   } catch (error) {
+    let texto
     if (error.message.includes("internal")) {
       texto = "Intente más tarde";
     } else {
@@ -147,53 +81,6 @@ export const onload = async () => {
       showConfirmButton: false,
       timer: 2500,
     });
-  }
-};
-
-//[1] GENERAL
-function readOptionGraphs() {
-  const optionGraficos = `
-      <option selected default value="line">📈 Lineas</option>
-      <option value="bar">📊 Barras</option>`;
-
-  const tipoGraficoUno = document.getElementById("tipoGraficoUno");
-  const tipoGraficoDos = document.getElementById("tipoGraficoDos");
-  const tipoGraficoBank = document.getElementById("tipoGraficoBank");
-
-  tipoGraficoUno.innerHTML = optionGraficos;
-  tipoGraficoDos.innerHTML = optionGraficos;
-  tipoGraficoBank.innerHTML = optionGraficos;
-}
-//master
-
-    let lastYear = parseInt(new Date().getFullYear()-1)
-    //Create new chart
-    const data = await makeRequest(lastYear, '001', 'onload')
-    //Graphic with 1 data
-    const dataFormatAll = formatData(data, 3)
-    const employeesTotal = document.getElementById('graphEmployeesActual')
-    const color = 'purple'
-
-    
-    const month = ['Enero', 'Marzo', 'Mayo', 'Julio', 'Septiembre', 'Noviembre']
-
-    //Create new chart
-    graph([dataFormatAll, color], employeesTotal, month,'line', 1)
-
-  } catch (error) {
-    if (error.message.includes('internal')) {
-      texto = 'Intente más tarde'
-    } else {
-      texto = 'Algo salió mal'
-    }
-
-    Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: texto,
-      showConfirmButton: false,
-      timer: 2500
-    })
   }
 };
 
@@ -213,7 +100,7 @@ function readOptionGraphs(){
     tipoGraficoDos.innerHTML=optionGraficos
     tipoGraficoBank.innerHTML=optionGraficos
   }
-//fin master
+
 
 //[2] INDICES LIST
 function createIndicesList() {
