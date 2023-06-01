@@ -1,6 +1,6 @@
-import { makeRequest } from "./makeRequest.js";
-import { graph } from "./graph.js";
-import { formatData } from "./formatData.js";
+import { makeRequestB } from "./makeRequest.js";
+import { graphB } from "./graph.js";
+import { formatDataB } from "./formatData.js";
 import { formatData2 } from "./formatData2.js";
 
 export const mainBalance = async (year, bancoId, typeGraph) => {
@@ -48,12 +48,12 @@ const handleRequest1 = async (year, idBanco, tipoGrafico) => {
     console.log("aqui probando");
 
     //alert("año en hr1: " + year);
-    const datos = await makeRequest(idBanco, cuenta, year, tipoGrafico);
+    const datos = await makeRequestB(idBanco, cuenta, year, tipoGrafico);
     console.log(datos);
 
     //grafico 1
     const canva = document.getElementById("graficoBalance1");
-    const datosFormateados = formatData(datos);
+    const datosFormateados = formatDataB(datos);
     console.log("datos formateados: " + datosFormateados);
     const color1 = "rgb(54, 162, 235)";
     // console.log(datosFormateados);
@@ -64,7 +64,7 @@ const handleRequest1 = async (year, idBanco, tipoGrafico) => {
       existingChart.destroy();
     }
 
-    graph(datosFormateados, canva, tipoGrafico, color1);
+    graphB(datosFormateados, canva, tipoGrafico, color1);
   } catch (error) {
     const Toast = Swal.mixin({
       toast: true,
@@ -91,7 +91,7 @@ const handleRequest2 = async (year, idBanco, tipoGrafico) => {
   try {
     let cuenta = "1000000";
 
-    const datos = await makeRequest(idBanco, cuenta, year, tipoGrafico);
+    const datos = await makeRequestB(idBanco, cuenta, year, tipoGrafico);
     console.log(datos);
     // console.log("datos2222222");
 
@@ -105,7 +105,7 @@ const handleRequest2 = async (year, idBanco, tipoGrafico) => {
     if (existingChart) {
       existingChart.destroy();
     }
-    graph(datosFormateados, canva, tipoGrafico, color2);
+    graphB(datosFormateados, canva, tipoGrafico, color2);
   } catch (error) {
     errores(3);
   }

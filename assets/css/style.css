@@ -67,6 +67,15 @@ width: 10rem;
 
 .text-left{text-align: left !important;}
 
+.text-white {
+  transition: 0.5s;
+}
+
+.text-white:hover {
+  color: rgba(54, 162, 235, 1)!important;
+
+}
+
 @media (max-width: 1199px) { /* Tamaño de pantalla md */
 .hidden{
   display:none !important;

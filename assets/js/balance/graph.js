@@ -1,14 +1,8 @@
-export const graph = (datos, contenedor, typeGraph, color) => {
-  //alert("holi");
+export const graphB = (datos, contenedor, typeGraph, color) => {
+
   console.log(datos);
-  let labels;
-  /*if (meses.length > 0) {
-    //alert("ZIIII");
-    labels = meses;
-  } else {
-    labels = datos.labels;
-  }*/
-  //   console.log(datos);
+
+
   console.log(contenedor);
   new Chart(contenedor, {
     type: typeGraph,

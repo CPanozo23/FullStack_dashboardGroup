@@ -24,14 +24,6 @@ export const formatData2 = (datos) => {
 
   console.log(values);
 
-  // const descripcion = datos2.CodigosBalances.map(
-  //   (elemento) => elemento.DescripicionCuenta
-  // );
-
-  // console.log(descripcion);
-
-  //   console.log(fechas);
-  //   console.log(values);
   return {
     labels: fechas,
     data: values,
