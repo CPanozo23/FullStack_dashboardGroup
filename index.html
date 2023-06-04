@@ -42,7 +42,6 @@
                     <div class="card-body">
                         
                         <img src="./assets/images/account_balance.svg" class="card-img-top imgIcon" alt="...">
-                        <!--<img src="./assets/images/groups.svg" class="card-img-top imgIcon" alt="...">-->
                         <h5 class="card-title">Información bancaria</h5>
                         <p class="card-text">Aquí encontrarás información bancaria como sus cuentas principales y
                             personal por año.</p>
@@ -61,6 +60,7 @@
                                 </h5>
                                 <!-- REEMPLAZAR POR GRÁFICO DE FABY: -->
                                 <canvas id="graficoEfectivo"></canvas>
+
                             </div>
                         </div>
                             
@@ -164,14 +164,22 @@
                             <canvas id="graphEmployees2"></canvas>
                         </div>
                     </section>
+
                     <section class="row text-center align-items-center mt-3" id ="showBalance" hidden>
+
                         <h4>Cuentas bancarias</h4>
                         <div class="col-lg-6 col-md-12 text-center d-block justify-content-center align-items-center">
-                            <h5>Cuenta: Efectivo</h5>
+                            <h5 class="d-flex align-items-center text-center justify-content-center">
+                                <span class="material-symbols-outlined">payments</span>
+                                Cuenta: Efectivo
+                            </h5>
                             <canvas id="graficoBalance1"></canvas>
                         </div>
                         <div class="col-lg-6 col-md-12 text-center d-block justify-content-center align-items-center">
-                            <h5>Cuenta: Activos</h5>
+                            <h5 class="d-flex align-items-center text-center justify-content-center">
+                                <span class="material-symbols-outlined">finance_chip</span>
+                                Cuenta: Activos
+                            </h5>
 
                             <canvas id="graficoBalance2"></canvas>
                         </div>
@@ -189,11 +197,18 @@
         </section>
 
 
-<!--------------------------------------------------------------------------------->
-<button class="btn btn-primary" type="button" id="btnGeneralYear" hidden>Seleccionar</button>
+<!-------------------------------------------------------------blank-------------------->
     </main>
     <footer class="text-bg-dark p-3 text-center mt-3">
-        <p>Jonathan Hernández - Fabiola Núñez - Cecilia Panozo | &copy;2023</p>
+        <!--<h5 class="d-flex align-items-center text-center justify-content-center">-->
+            
+        <p class="d-flex align-items-center text-center justify-content-center">
+            <span class="material-symbols-outlined">group</span>
+            ¿Quieres conocernos?
+            <a href="https://github.com/Jhernandez84" target="blank" class="text-decoration-none text-white mx-1"> Jonathan Hernández</a> - 
+            <a href="https://github.com/fabiolanunez" target="blank" class="text-decoration-none text-white mx-1"> Fabiola Núñez</a> - 
+            <a href="https://github.com/CPanozo23" target="blank" class="text-decoration-none text-white mx-1"> Cecilia Panozo</a> | 
+            &copy;2023</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

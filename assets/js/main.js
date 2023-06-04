@@ -6,44 +6,22 @@ import * as mainIndicators from "./indicators/mainIndicators.js";
 /****************** [1] GENERAL ******************/
 const readData = async () => {
   await onload();
-};
+}
 /****************** [2] INDICADORES ******************/
 
-// Defino todas las variables que utilizaré para manejo del DOM
-
 mainIndicators.obtieneIndices();
+document.getElementById("inputFechaInicial").value = mainIndicators.obtieneFecha(document.getElementById("selectorPeriodo").value);
+document.getElementById("inputFechaFinal").value = new Date().toJSON().split("T")[0];
 
-document.getElementById("inputFechaInicial").value =
-  mainIndicators.obtieneFecha(document.getElementById("selectorPeriodo").value);
-document.getElementById("inputFechaFinal").value = new Date()
-  .toJSON()
-  .split("T")[0];
+document.getElementById("selectorPeriodo").addEventListener("change", mainIndicators.selectorDePeriodo, false);
+document.getElementById("selectIndex1").addEventListener("change", mainIndicators.cambio, false);
+document.getElementById("selectIndex2").addEventListener("change", mainIndicators.cambio, false);
+document.getElementById("btncheck1").addEventListener("click", mainIndicators.validaComparable);
 
-document
-  .getElementById("selectorPeriodo")
-  .addEventListener("change", mainIndicators.selectorDePeriodo);
-document
-  .getElementById("selectIndex1")
-  .addEventListener("change", mainIndicators.cambio, false);
-document
-  .getElementById("selectIndex2")
-  .addEventListener("change", mainIndicators.cambio, false);
-document
-  .getElementById("btncheck1")
-  .addEventListener("click", mainIndicators.validaComparable);
-
-document
-  .getElementById("tipoGraficoUno")
-  .addEventListener("change", mainIndicators.cambio);
-document
-  .getElementById("tipoGraficoDos")
-  .addEventListener("change", mainIndicators.cambio);
-document
-  .getElementById("inputFechaInicial")
-  .addEventListener("change", mainIndicators.cambio);
-document
-  .getElementById("inputFechaFinal")
-  .addEventListener("change", mainIndicators.cambio);
+document.getElementById("tipoGraficoUno").addEventListener("change", mainIndicators.cambio, false);
+document.getElementById("tipoGraficoDos").addEventListener("change", mainIndicators.cambio, false);
+document.getElementById("inputFechaInicial").addEventListener("change", mainIndicators.cambio, false);
+document.getElementById("inputFechaFinal").addEventListener("change", mainIndicators.cambio, false);
 
 /****************** [3] BANK INFO ******************/
 const bankClick = document.getElementById("banks");
@@ -63,29 +41,20 @@ const selectedBankInfo = async (event) => {
       timer: 2500,
     });
   } else {
-    //alert("si")
     await mainBankInfo(event.type);
-
+    /****************** [4] BALANCE ******************/
     await mainBalance(year.value, bankClick.value, typeGraph.value);
-    //no existen datos de perfil el 2016 pero si de balance
-    //numerico que valide ambas fechas y luego da el mensaje
-    //1)NINGUNO
-    //2) SIN PERFIL
-    //3) SIN BALANCE
   }
 };
+
+
+
 
 bankClick.addEventListener("change", selectedBankInfo);
 year.addEventListener("change", selectedBankInfo);
 typeGraph.addEventListener("change", selectedBankInfo);
 
-/****************** [4] BALANCE ******************/
 
-const handleRequestBtn2 = async () => {
-  await mainBalance("yearClick");
-};
-console.log(year.value);
-console.log(typeGraph.value);
 
 /*************************************************/
 document.addEventListener("DOMContentLoaded", readData);

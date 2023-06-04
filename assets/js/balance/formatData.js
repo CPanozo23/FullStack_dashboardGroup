@@ -1,4 +1,4 @@
-export const formatData = (datos) => {
+export const formatDataB = (datos) => {
   const meses = [
     "Enero",
     "Febrero",
@@ -21,17 +21,6 @@ export const formatData = (datos) => {
   const values = datos.CodigosBalances.map((elemento) =>
     parseInt(elemento.MonedaTotal)
   );
-
-  console.log("fd " + values);
-
-  // const descripcion = datos2.CodigosBalances.map(
-  //   (elemento) => elemento.DescripicionCuenta
-  // );
-
-  // console.log(descripcion);
-
-  //   console.log(fechas);
-  //   console.log(values);
 
   return {
     labels: fechas,
